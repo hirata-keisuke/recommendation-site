@@ -17,7 +17,6 @@ class BeerStyle(models.Model):
     style = models.CharField("ビアスタイルの名称", max_length=20)
     birthplace = models.CharField("ビアスタイルの発祥地", max_length=20)
     fermentation = models.CharField("醸造方法", max_length=10)
-    brands = models.ManyToManyField(BeerBrand)
 
 class BeerBrand(models.Model):
 
@@ -26,8 +25,7 @@ class BeerBrand(models.Model):
     color = models.CharField("ビールの色", max_length=10)
     srm = models.FloatField("米国醸造化学者学会によるビールの色の数値指標")
     bitterness = models.FloatField("ビールの苦味IBU")
-    like = models.IntegerField("この銘柄を好きと言った会員数")
-    dislike = models.IntegerField("この銘柄を好きと言った会員数")
+    style = models.ForeignKey(BeerStyle, on_delete=models.RESTRICT)
 
 class BeerReview(models.Model):
 
