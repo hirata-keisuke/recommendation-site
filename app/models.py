@@ -12,11 +12,18 @@ class Member(models.Model):
     birth_date = models.DateField("会員の生年月日")
     mail = models.EmailField("会員のeメールアドレス")
 
+    def __str__(self):
+        return self.name
+
 class BeerStyle(models.Model):
 
     style = models.CharField("ビアスタイルの名称", max_length=20)
     birthplace = models.CharField("ビアスタイルの発祥地", max_length=20)
     fermentation = models.CharField("醸造方法", max_length=10)
+    desciption = models.TextField()
+
+    def __str__(self):
+        return self.style
 
 class BeerBrand(models.Model):
 
@@ -26,6 +33,9 @@ class BeerBrand(models.Model):
     srm = models.FloatField("米国醸造化学者学会によるビールの色の数値指標")
     bitterness = models.FloatField("ビールの苦味IBU")
     style = models.ForeignKey(BeerStyle, on_delete=models.RESTRICT)
+
+    def __str__(self):
+        return self.name
 
 class BeerReview(models.Model):
 
