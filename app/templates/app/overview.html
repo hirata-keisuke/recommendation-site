@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DjangoでWebアプリ</title>
+  </head>
+  <body>
+<p>ビール銘柄一覧</p>
+<table>
+  <thead>
+    <tr>
+      <th>銘柄</th>
+      <th>ビアスタイル</th>
+      <th>度数[%]</th>
+      <th>SRM</th>
+      <th>IBU</th>
+    </tr>
+  </thead>
+{% if brand_list %}
+  {% for brand in brand_list %}
+  <tbody>
+    <tr>
+      <td>{{ brand.name }}</td>
+      <td>{{ brand.style.style }}</td>
+      <td>{{ brand.degree }}</td>
+      <td>{{ brand.srm }}</td>
+      <td>{{ brand.bitterness }}</td>
+    </tr>
+  </tbody>
+  {% endfor %}
+{% endif %}
+</table>
+  </body>
+</html>
