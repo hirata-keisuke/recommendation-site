@@ -4,11 +4,9 @@ from . import views
 
 app_name = "app"
 urlpatterns = [
-    path("top/", views.top, name="top"),
-    path("login/", views.login, name="login"),
-    path("logout/", views.login_check, name="login_check"),
-    path("logout/", views.logout, name="logout"),
-    path("search/", views.search, name="search"),
-    path("search_result/", views.search_result, name="search_result"),
-    path("overview/", views.overview, name="overview"),
+    path("brand_detail/<int:pk>/", views.BrandDetail.as_view(), name="brand_detail"),
+    path("brand_delete/<int:pk>", views.BrandDelete.as_view(), name="brand_delete"),
+    path("brand_update/<int:pk>", views.BrandUpdate.as_view(), name="brand_update"),
+    path("review_create/", views.ReviewCreate.as_view(), name="search_result"),
+    path("brand_list/", views.BrandList.as_view(), name="brand_list"),
 ]

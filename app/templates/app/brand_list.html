@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DjangoでWebアプリ</title>
+  </head>
+  <body>
+{% extends "app/base.html" %}
+
+{% block header %}
+<h1 class="bg-success p-2" style="--bs-bg-opacity: .5;">
+  ビール銘柄一覧
+</h1>
+{% endblock header %}
+
+{% block content %}
+  <div class="container">
+{% if object_list %}
+  {% for brand in object_list %}
+  <div class="card">
+  <h5 class="card-header">{{ brand.name }}</h5>
+  <div class="card-body">
+    <p class="card-text">
+      <ul class="list-group">
+        <li class="list-group-item">スタイル:{{ brand.style.style }}</li>
+        <li class="list-group-item">度数:{{ brand.degree }}</li>
+        <li class="list-group-item">SRM:{{ brand.srm }}</li>
+        <li class="list-group-item">IBU:{{ brand.bitterness }}</li>
+      </ul>
+    </p>
+    <a href="{% url 'app:brand_detail' brand.pk %}" class="btn btn-primary">詳細へ</a>
+  </div>
+</div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock content %}
+
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DjangoでWebアプリ</title>
+  </head>
+  <body>
+{% extends "app/base.html" %}
+
+{% block header %}
+<h1 class="bg-success p-2" style="--bs-bg-opacity: .5;">
+  ビール銘柄更新
+</h1>
+{% endblock header %}
+
+{% block content %}
+<form action="" method="POST">
+{% csrf_token %}
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-header">{{ object.name }}の更新</h5>
+      {{ form.as_p }}
+      <a href="{% url 'app:brand_list' %}" class="btn btn-primary">更新して一覧へ</a>
+    </div>
+  </div>
+</div>
+</form>
+{% endblock content %}
+  </body>
+</html>

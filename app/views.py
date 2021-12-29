@@ -1,40 +1,55 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.urls import reverse_lazy
 
-from .models import BeerBrand
-from .forms import LoginForm
+from .models import BeerBrand, BeerReview
 
-def top(request):
-    return render(request, "app/top.html")
+#def Top(request):
+#    return render(request, "app/top.html")
 
-def overview(request):
-    brand_list = BeerBrand.objects.all()
-    context = {"brand_list":brand_list}
-    return render(request, "app/overview.html", context)
+class BrandList(ListView):
+    template_name = "app/brand_list.html"
+    model = BeerBrand
 
-def search(request):
-    return render(request, "app/search.html")
+class BrandDetail(DetailView):
+    template_name = "app/brand_detail.html"
+    model = BeerBrand
 
-def search_result(request):
-    return render(request, "app/search_result.html")
+class ReviewCreate(CreateView):
+    template_name = "app/review_create.html"
+    model = BeerReview
+    fields = ("user", "brand", "review", "rate")
+    success_url = reverse_lazy("app:brand_list")
 
-def login(request):
-    form = LoginForm()
+class BrandDelete(DeleteView):
+    template_name = "app/brand_delete.html"
+    model = BeerBrand
+    success_url = reverse_lazy("app:brand_list")
 
-    return render(request, "app/login.html", {"form" : form})
+class BrandUpdate(UpdateView):
+    template_name = "app/brand_update.html"
+    model = BeerBrand
+    fields = ("name", "degree", "color", "srm", "bitterness", "style")
+    success_url = reverse_lazy("app:brand_list")
 
-def login_check(request):
+#def login(request):
+#    form = LoginForm()
 
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            return HttpResponse("app/logout.html")
+#    return render(request, "app/login.html", {"form" : form})
 
-    else:
-        form = LoginForm()
+#def login_check(request):
 
-    return render(request, "app/login.html", {"form" : form})
+#    if request.method == "POST":
+#        form = LoginForm(request.POST)
+#        if form.is_valid():
+#            return HttpResponse("app/logout.html")
+
+#    else:
+#        form = LoginForm()
+
+#    return render(request, "app/login.html", {"form" : form})
 
 
-def logout(request):
-    return render(request, "app/logout.html")
+#def logout(request):
+#    return render(request, "app/logout.html")
