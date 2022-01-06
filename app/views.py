@@ -5,12 +5,17 @@ from django.urls import reverse_lazy
 
 from .models import BeerBrand, BeerReview
 
-#def Top(request):
-#    return render(request, "app/top.html")
+class TopList(ListView):
+    ...
 
-class BrandList(ListView):
-    template_name = "app/brand_list.html"
-    model = BeerBrand
+class StyleList(ListView):
+    ...
+
+class StyleDetail(DetailView):
+    ...
+
+class BrandSearch():
+    ...
 
 class BrandDetail(DetailView):
     template_name = "app/brand_detail.html"
@@ -22,16 +27,35 @@ class ReviewCreate(CreateView):
     fields = ("user", "brand", "review", "rate")
     success_url = reverse_lazy("app:brand_list")
 
-class BrandDelete(DeleteView):
-    template_name = "app/brand_delete.html"
-    model = BeerBrand
-    success_url = reverse_lazy("app:brand_list")
+class CreateCheck():
+    ...
 
-class BrandUpdate(UpdateView):
-    template_name = "app/brand_update.html"
-    model = BeerBrand
-    fields = ("name", "degree", "color", "srm", "bitterness", "style")
-    success_url = reverse_lazy("app:brand_list")
+class CreateComplete():
+    ...
+
+class ReviewDelete(DeleteView):
+    ...
+
+class DeleteComplete():
+    ...
+
+class ReviewUpdate(UpdateView):
+    ...
+
+class UpdateCheck():
+    ...
+
+class UpdateComplete():
+    ...
+
+class Login():
+    ...
+
+class Logout():
+    ...
+
+class Error():
+    ...
 
 #def login(request):
 #    form = LoginForm()
