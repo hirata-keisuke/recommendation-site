@@ -5,16 +5,12 @@
     <title>Djangoビールおすすめサイト</title>
   </head>
   <body>
-    <h1>ビールスタイル詳細画面</h1>
-    {% if style %}
-        <ul>
-          <li>{{style.name}}</li>
-          <li>{{style.birth_place}}</li>
-          <li>{{style.get_fermentation_display}}</li>
-          <li>{{style.description}}</li>
-        </ul>
-    {% else %}
-      <h3>ビアスタイルは登録されていません</h3>
-    {% endif %}
+  <h1>ビールスタイル詳細画面</h1>
+  <ul>
+    <li>{{style.name}}</li>
+    <li>{{style.birth_place}}</li>
+    <li>{{style.get_fermentation_display}}</li>
+    <li>{{style.description}}</li>
+  </ul>
   </body>
 </html>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class BeerStyle(models.Model):
     name = models.CharField("ビアスタイル", max_length=15)
@@ -10,3 +11,10 @@ class BeerStyle(models.Model):
 
     def __str__(self):
         return self.name
+
+class BeerBrand(models.Model):
+    name = models.CharField("ビール銘柄", max_length=15)
+    degree = models.FloatField("アルコール度数", validators=[MinValueValidator(0)])
+    color = models.CharField("ビールの色", max_length=10)
+    bitterness = models.FloatField("IBU", validators=[MinValueValidator(0)])
+    style = models.ForeignKey(BeerStyle, on_delete=models.CASCADE)

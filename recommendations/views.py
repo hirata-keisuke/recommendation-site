@@ -55,3 +55,29 @@ def edit_style(request, style_id):
         request, "recommendations/edit_style.html",
         {"form" : form, "style_id" : style_id}
     )
+
+def regist_brand(request):
+
+    if request.method == "POST":
+        form = forms.BeerBrandForm(request.POST)
+        if form.is_valid():
+            brand = form.save()
+            return redirect(
+                detail_brand, brand_id=brand.pk
+            )
+
+    else:
+        form = forms.BeerBrandForm()
+    return render(
+        request, "recommendations/regist_brand.html",
+        {"form" : form}
+    )
+
+def detail_brand(request, brand_id):
+    brand = get_object_or_404(models.BeerBrand, pk=brand_id)
+    context = {"brand" : brand}
+
+    return render(
+        request, "recommendations/detail_brand.html",
+        context
+    )
