@@ -1,3 +1,4 @@
 from django.contrib import admin
+from recommendations import models
 
-# Register your models here.
+admin.site.register(models.BeerStyle)
