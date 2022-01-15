@@ -7,4 +7,5 @@ urlpatterns = [
     path("", views.top, name="top"),
     path('admin/', admin.site.urls),
     path("recommendations/", include("recommendations.urls")),
+    path("accounts/", include("accounts.urls")),
 ]

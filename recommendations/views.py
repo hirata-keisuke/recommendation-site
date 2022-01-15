@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.views.decorators.http import require_GET
 
 from recommendations import models, forms
 
+@require_GET
 def top(request):
     styles = models.BeerStyle.objects.all()
     context = {"styles" : styles}
