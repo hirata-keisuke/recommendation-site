@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Djangoビールおすすめサイト</title>
-  </head>
-  <body>
-  <h1>ビールスタイル詳細画面</h1>
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<h1>ビールスタイル詳細画面</h1>
+<div>
+  <h3 class="title">{{style.name}}</h3>
   <ul>
-    <li>{{style.name}}</li>
-    <li>{{style.birth_place}}</li>
-    <li>{{style.get_fermentation_display}}</li>
-    <li>{{style.description}}</li>
+    <li>発祥地:{{style.birth_place}}</li>
+    <li>発酵方法:{{style.get_fermentation_display}}</li>
   </ul>
-  </body>
-</html>
+  <div>
+    {{style.description}}
+  </div>
+  <h3>{{style.name}}の銘柄</h3>
+  <div>
+    {% if brands %}
+    <ul>
+      {% for brand in brands %}
+      <li><a href="{% url 'detail_brand' brand.id %}">{{brand.name}}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>登録されている{{style.name}}の銘柄はありません</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

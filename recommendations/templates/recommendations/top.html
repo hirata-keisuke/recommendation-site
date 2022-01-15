@@ -1,13 +1,19 @@
+<!DOCTYPE html>
 {% extends "base.html" %}
+{% load static %}
 
 {% block main %}
-<h1>ビールおすすめサイトトップ画面</h1>
+<h1>トップ画面</h1>
 {% if styles %}
   {% for style in styles %}
-    <div>
-      <p>{{style.name}}</p><br>
-      <p>{{style.description}}</p>
+  <div class="card" style="width: 18rem;">
+    <img src="{% static 'recommendations/NO_IMAGE.png' %}" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{ style.name }}</h5>
+      <p class="card-text">{{ style.description }}</p>
+      <a href="{% url 'detail_style' style.id %}" class="btn btn-primary">ビアスタイルページへ</a>
     </div>
+  </div>
   {% endfor %}
 {% else %}
   <h3>ビアスタイルは登録されていません</h3>

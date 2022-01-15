@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
 
 from recommendations import models, forms
@@ -33,7 +33,8 @@ def regist_style(request):
 
 def detail_style(request, style_id):
     style = get_object_or_404(models.BeerStyle, pk=style_id)
-    context = {"style" : style}
+    brands = models.BeerBrand.objects.filter(style__id=style_id)
+    context = {"style" : style, "brands" : brands}
 
     return render(
         request, "recommendations/detail_style.html",
@@ -77,9 +78,48 @@ def regist_brand(request):
 
 def detail_brand(request, brand_id):
     brand = get_object_or_404(models.BeerBrand, pk=brand_id)
-    context = {"brand" : brand}
+    reviews = models.BeerReview.objects.filter(review_to__id=brand_id)
+    context = {"brand" : brand, "reviews" : reviews}
 
     return render(
         request, "recommendations/detail_brand.html",
         context
+    )
+
+@login_required
+def review(request, brand_id):
+
+    try:
+        review = models.BeerReview.objects.get(
+            review_to__id=brand_id, reviewed_by__id=request.user.id
+        )
+    except models.BeerReview.DoesNotExist:
+        review = None
+
+    if request.method != "POST":
+        form = forms.ReviewForm(instance=review)
+        return render(
+            request,  "recommendations/review.html",
+            {"form" : form, "brand_id" : brand_id}
+        )
+
+    form = forms.ReviewForm(request.POST, instance=review)
+
+    if form.is_valid:
+        review = form.save(commit=False)
+        brand = models.BeerBrand.objects.get(pk=brand_id)
+        review.review_to = brand
+        
+    else:
+        return render(
+            request,  "recommendations/review.html",
+            {"form" : form, "brand_id" : brand_id}
+        )
+
+    review.reviewed_by = request.user
+
+    review.save()
+
+    return redirect(
+        "detail_brand", brand_id=brand_id
     )

@@ -11,3 +11,8 @@ class BeerBrandForm(forms.ModelForm):
     class Meta:
         model = models.BeerBrand
         fields = ("name", "degree", "color", "bitterness", "style")
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = models.BeerReview
+        fields = ("review",)

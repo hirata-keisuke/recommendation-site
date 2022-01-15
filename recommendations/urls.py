@@ -8,4 +8,5 @@ urlpatterns = [
     path("style/<int:style_id>/edit/", views.edit_style, name="edit_style"),
     path("brand/regist/", views.regist_brand, name="regist_brand"),
     path("brand/<int:brand_id>/", views.detail_brand, name="detail_brand"),
+    path("review/<int:brand_id>/", views.review, name="review"),
 ]

@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html lang="ja" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Djangoビールおすすめサイト</title>
-  </head>
-  <body>
-  <h1>ビール銘柄詳細画面</h1>
+{% extends "base.html" %}
+
+{% block main %}
+<h1>ビール銘柄詳細画面</h1>
+<div>
+  <h2 class="title">{{brand.name}}</h2>
   <ul>
-    <li>{{brand.name}}</li>
-    <li>{{brand.degree}}</li>
-    <li>{{brand.bitterness}}</li>
-    <li>{{brand.color}}</li>
-    <li>{{brand.style.name}}</li>
+    <li>アルコール度数:{{brand.degree}}</li>
+    <li>IBU:{{brand.bitterness}}</li>
+    <li>色味:{{brand.color}}</li>
+    <li>スタイル:{{brand.style.name}}</li>
   </ul>
-  </body>
-</html>
+  <div class="button-right">
+    <a href="{% url 'review' brand.id %}" class="btn btn-primary">
+      レビューを書く
+    </a>
+  </div>
+</div>
+<div>
+  <h2>飲んでみた感想</h2>
+  {% if reviews %}
+    {% for review in reviews %}
+      <div class="card" style="width: 30rem;">
+        <div class="card-body">
+          {{review.review}}
+          <div>
+            <small>{{review.reviewed_by}} さんが 
+              {% if review.reviewed_at == review.updated_at %}
+                {{review.reviewed_at}}に投稿しました
+              {% else %}
+                {{review.updated_at}}に編集しました
+              {% endif %}
+            </small>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    まだ投稿はありません
+  {% endif %}
+</div>
+ {% endblock %}
